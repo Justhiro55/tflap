@@ -2,6 +2,7 @@
 
 [![Crates.io](https://img.shields.io/crates/v/tflap.svg)](https://crates.io/crates/tflap)
 [![Downloads](https://img.shields.io/crates/d/tflap.svg)](https://crates.io/crates/tflap)
+[![CI](https://github.com/Justhiro55/tflap/workflows/CI/badge.svg)](https://github.com/Justhiro55/tflap/actions)
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
 
