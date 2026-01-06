@@ -1,0 +1,15 @@
+[package]
+name = "tflap"
+version = "0.1.0"
+edition = "2021"
+authors = ["Your Name <your.email@example.com>"]
+description = "A classic Flappy Bird game in your terminal"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/yourusername/tflap"
+readme = "README.md"
+keywords = ["game", "flappy-bird", "terminal", "cli", "retro"]
+categories = ["command-line-utilities", "games"]
+
+[dependencies]
+crossterm = "0.28"
+rand = "0.8"
