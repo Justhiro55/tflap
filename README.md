@@ -5,6 +5,8 @@
 [![License](https://img.shields.io/badge/license-MIT%2FApache--2.0-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-1.70%2B-orange.svg)](https://www.rust-lang.org/)
 
+<img src="tflap.gif" alt="tflap gameplay demo" width="600">
+
 > A classic Flappy Bird game in your terminal 🐦
 
 Play the addictive Flappy Bird game directly in your terminal with smooth animations, persistent high scores, and simple controls.
