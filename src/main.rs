@@ -59,7 +59,11 @@ struct Pipe {
 
 impl Pipe {
     fn new(x: i32, gap_y: u16) -> Self {
-        Self { x, gap_y, passed: false }
+        Self {
+            x,
+            gap_y,
+            passed: false,
+        }
     }
 
     fn update(&mut self) {
@@ -72,10 +76,11 @@ impl Pipe {
 
     fn collides_with(&self, bird_x: u16, bird_y: u16) -> bool {
         let bird_x = bird_x as i32;
-        if bird_x + 2 > self.x && bird_x < self.x + PIPE_WIDTH as i32 {
-            if bird_y < self.gap_y || bird_y >= self.gap_y + PIPE_GAP {
-                return true;
-            }
+        if bird_x + 2 > self.x
+            && bird_x < self.x + PIPE_WIDTH as i32
+            && (bird_y < self.gap_y || bird_y >= self.gap_y + PIPE_GAP)
+        {
+            return true;
         }
         false
     }
@@ -138,7 +143,7 @@ impl Game {
             let min_gap_y = 3;
             let max_gap_y = game.height.saturating_sub(PIPE_GAP + 3);
             let gap_y = rng.gen_range(min_gap_y..=max_gap_y);
-            let x = width as i32 / 2 + (i as i32 * 40);
+            let x = width as i32 / 2 + (i * 40);
             game.pipes.push(Pipe::new(x, gap_y));
         }
 
@@ -241,7 +246,7 @@ impl Game {
             let min_gap_y = 3;
             let max_gap_y = self.height.saturating_sub(PIPE_GAP + 3);
             let gap_y = rng.gen_range(min_gap_y..=max_gap_y);
-            let x = self.width as i32 / 2 + (i as i32 * 40);
+            let x = self.width as i32 / 2 + (i * 40);
             self.pipes.push(Pipe::new(x, gap_y));
         }
     }
@@ -291,7 +296,10 @@ impl Game {
         execute!(
             stdout,
             MoveTo(2, self.height - 1),
-            Print(format!("Score: {}  High Score: {}", self.score, self.high_score))
+            Print(format!(
+                "Score: {}  High Score: {}",
+                self.score, self.high_score
+            ))
         )?;
 
         // Draw game over screen
@@ -301,23 +309,83 @@ impl Game {
 
             if self.is_new_record {
                 execute!(stdout, SetForegroundColor(Color::Yellow))?;
-                execute!(stdout, MoveTo(msg_x, msg_y - 1), Print("╔══════════════════════════╗"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y),     Print("║   *** NEW RECORD! ***    ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 1), Print(format!("║   Score: {:5}            ║", self.score)))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 2), Print("║                          ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 3), Print("║   R: Retry               ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 4), Print("║   Q: Quit                ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 5), Print("╚══════════════════════════╝"))?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y - 1),
+                    Print("╔══════════════════════════╗")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y),
+                    Print("║   *** NEW RECORD! ***    ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 1),
+                    Print(format!("║   Score: {:5}            ║", self.score))
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 2),
+                    Print("║                          ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 3),
+                    Print("║   R: Retry               ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 4),
+                    Print("║   Q: Quit                ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 5),
+                    Print("╚══════════════════════════╝")
+                )?;
             } else {
                 execute!(stdout, SetForegroundColor(Color::Red))?;
-                execute!(stdout, MoveTo(msg_x, msg_y - 1), Print("╔══════════════════════════╗"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y),     Print("║   GAME OVER!             ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 1), Print(format!("║   Score: {:5}            ║", self.score)))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 2), Print(format!("║   Best:  {:5}            ║", self.high_score)))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 3), Print("║                          ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 4), Print("║   R: Retry               ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 5), Print("║   Q: Quit                ║"))?;
-                execute!(stdout, MoveTo(msg_x, msg_y + 6), Print("╚══════════════════════════╝"))?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y - 1),
+                    Print("╔══════════════════════════╗")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y),
+                    Print("║   GAME OVER!             ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 1),
+                    Print(format!("║   Score: {:5}            ║", self.score))
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 2),
+                    Print(format!("║   Best:  {:5}            ║", self.high_score))
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 3),
+                    Print("║                          ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 4),
+                    Print("║   R: Retry               ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 5),
+                    Print("║   Q: Quit                ║")
+                )?;
+                execute!(
+                    stdout,
+                    MoveTo(msg_x, msg_y + 6),
+                    Print("╚══════════════════════════╝")
+                )?;
             }
         }
 
@@ -347,19 +415,20 @@ fn main() -> io::Result<()> {
     result
 }
 
-fn run_game(
-    stdout: &mut io::Stdout,
-    game: &mut Game,
-    last_tick: &mut Instant,
-) -> io::Result<()> {
+fn run_game(stdout: &mut io::Stdout, game: &mut Game, last_tick: &mut Instant) -> io::Result<()> {
     loop {
         game.draw(stdout)?;
 
         // Handle input - process all pending events
         while event::poll(Duration::from_millis(0))? {
-            if let Event::Key(KeyEvent { code, modifiers, .. }) = event::read()? {
+            if let Event::Key(KeyEvent {
+                code, modifiers, ..
+            }) = event::read()?
+            {
                 match code {
-                    KeyCode::Char('c') | KeyCode::Char('C') if modifiers.contains(KeyModifiers::CONTROL) => {
+                    KeyCode::Char('c') | KeyCode::Char('C')
+                        if modifiers.contains(KeyModifiers::CONTROL) =>
+                    {
                         return Ok(());
                     }
                     KeyCode::Char(' ') => {
