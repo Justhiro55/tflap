@@ -29,14 +29,6 @@ Play the addictive Flappy Bird game directly in your terminal with smooth animat
 cargo install tflap
 ```
 
-### From source
-
-```bash
-git clone https://github.com/yourusername/tflap
-cd tflap
-cargo install --path .
-```
-
 ## Usage
 
 Simply run the command to start playing:
